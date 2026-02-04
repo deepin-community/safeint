@@ -1,0 +1,80 @@
+From 9b5e4e10286f45664305c53360ce56d3fd96bf74 Mon Sep 17 00:00:00 2001
+From: David LeBlanc <dcl@dleblanc.net>
+Date: Sat, 2 Sep 2023 15:56:08 -0700
+Subject: [PATCH] Make fix for gcc13 breaking change
+Forwarded: not-needed
+Bug: https://github.com/dcleblanc/SafeInt/issues/55
+
+--- a/Test/GccTest/CMakeLists.txt
++++ b/Test/GccTest/CMakeLists.txt
+@@ -132,14 +132,20 @@
+ 
+     target_compile_options(CompileTest_gcc14_NoEH PUBLIC -Wall -std=c++14 -fno-exceptions)
+ 
+-    add_executable(CompileTest_gcc98
+-    ../CompileTest.cpp
+-    ../ConstExpr.cpp 
+-    ../CleanCompile.cpp
+-    ../../SafeInt.hpp
+-    )
++    if(${CMAKE_CXX_COMPILER_VERSION} GREATER_EQUAL "13")
++        message(STATUS "not running c++98 tests")
++    else()
++        add_executable(CompileTest_gcc98
++        ../CompileTest.cpp
++        ../ConstExpr.cpp
++        ../CleanCompile.cpp
++        ../../SafeInt.hpp
++        )
++
++        target_compile_options(CompileTest_gcc98 PUBLIC -D SAFEINT_USE_CPLUSCPLUS_98 -Wall -std=c++98 -fno-exceptions)
++    endif()
++
+ 
+-    target_compile_options(CompileTest_gcc98 PUBLIC -D SAFEINT_USE_CPLUSCPLUS_98 -Wall -std=c++98 -fno-exceptions)
+ 
+     add_executable(safe_math_test_gcc
+     ../c_safe_math/safe_math_test.c
+--- a/Test/CompileTest.cpp
++++ b/Test/CompileTest.cpp
+@@ -257,32 +257,6 @@
+ 
+ }
+ 
+-void MoveRegression()
+-{
+-	#if CPLUSPLUS_STD == CPLUSPLUS_17
+-	#include <variant>
+-	#include <string>
+-
+-	template<typename... T>
+-	class Union {
+-	public:
+-		Union() = default;
+-		Union& operator=(Union&&) noexcept = default;
+-
+-		template<typename F>
+-		Union& operator=(F&& t) {
+-			value = std::forward<F>(t);
+-			return *this;
+-		}
+-
+-		std::variant<T...> value;
+-	};
+-
+-	Union<std::string, SafeInt<int64_t>> x;
+-	Union<std::string, SafeInt<int64_t>> y;
+-	x = std::move(y);
+-	#endif
+-}
+ void CompileMe()
+ {
+ 	CompileType<char>();
+@@ -303,7 +277,6 @@
+ 	CompileSigned<signed int>();
+ 	CompileSigned<signed long>();
+ 	CompileSigned<signed long long>();
+-	MoveRegression();
+ }
+ 
+ /*
