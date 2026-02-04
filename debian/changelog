@@ -1,5 +1,35 @@
-template-repository (1.0-1) unstable; urgency=medium
+safeint (3.0.28a+dfsg-5) unstable; urgency=medium
+
+  * Improve d/watch
+  * Update debian/copyright
+  * Add debian/upstream/metadata
+  * Add debian/salsa-ci.yml
+  * Standards-Version: 4.7.2 (no changes required)
+  * Update DEP3 header of Fix_gcc13.patch
+
+ -- Dylan Aïssi <daissi@debian.org>  Wed, 13 Aug 2025 08:11:29 +0200
+
+safeint (3.0.28a+dfsg-4) unstable; urgency=medium
+
+  * Add Multi-Arch: foreign
+  * Standards-Version: 4.7.0 (no changes required)
+
+ -- Dylan Aïssi <daissi@debian.org>  Tue, 03 Dec 2024 10:21:25 +0100
+
+safeint (3.0.28a+dfsg-3) unstable; urgency=medium
+
+  * Disable broken tests with GCC 13 (Closes: #1042152)
+
+ -- Dylan Aïssi <daissi@debian.org>  Fri, 10 Nov 2023 17:08:35 +0100
+
+safeint (3.0.28a+dfsg-2) unstable; urgency=medium
+
+  * Source only upload to unstable
+
+ -- Dylan Aïssi <daissi@debian.org>  Thu, 25 May 2023 15:23:25 +0200
+
+safeint (3.0.28a+dfsg-1) experimental; urgency=medium
 
   * Initial release
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Dylan Aïssi <daissi@debian.org>  Wed, 17 May 2023 11:17:11 +0200
