@@ -1,0 +1,25 @@
+From cb1b2004e480f12dab193ea413de1ea217b9da73 Mon Sep 17 00:00:00 2001
+From: Chengyi Zhao <zhaochengyi@uniontech.com>
+Date: Thu, 5 Feb 2026 14:39:42 +0800
+Subject: [PATCH] fix: fix compilation errors of Test/GccTest
+
+---
+ Test/GccTest/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Test/GccTest/CMakeLists.txt b/Test/GccTest/CMakeLists.txt
+index 93b6644..d7b46f3 100644
+--- a/Test/GccTest/CMakeLists.txt
++++ b/Test/GccTest/CMakeLists.txt
+@@ -132,7 +132,7 @@ else()
+ 
+     target_compile_options(CompileTest_gcc14_NoEH PUBLIC -Wall -std=c++14 -fno-exceptions)
+ 
+-    if(${CMAKE_CXX_COMPILER_VERSION} GREATER_EQUAL "13")
++    if(${CMAKE_CXX_COMPILER_VERSION} GREATER_EQUAL "12")
+         message(STATUS "not running c++98 tests")
+     else()
+         add_executable(CompileTest_gcc98
+-- 
+2.20.1
+

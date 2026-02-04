@@ -1,3 +1,9 @@
+safeint (3.0.28a+dfsg-5deepin1) unstable; urgency=medium
+
+  * Fix compilation errors
+
+ -- zhaochengyi <zhaochengyi@uniontech.com>  Thu, 05 Feb 2026 09:50:59 +0800
+
 safeint (3.0.28a+dfsg-5) unstable; urgency=medium
 
   * Improve d/watch
